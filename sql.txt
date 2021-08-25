@@ -1,1 +1,77 @@
 create table table_name (a int, b text, abc int);
+
+(1)
+CREATE TABLE table_name1 (
+column1_1 int,
+column1_2 text
+);
+CREATE TABLE table_name2 (
+column2_1 int,
+column2_2 text
+);
+
+CREATE TABLE table_name3 (
+column2_1 int,
+column2_2 text
+);
+(2)
+
+INSERT INTO table_name1 VALUES (1, '2342');
+(3)
+create index index_name1 on table_name1(column1);
+
+(4)
+select column1_1,column1_2 from table_name1 where column1_1=1 and column1_2='abcd';
+visualize noexec lqp select column1_1,column1_2 from table_name1 where column1_1=1 and column1_2='abcd';
+visualize noexec pqp select column1_1,column1_2 from table_name1 where column1_1=1 and column1_2='abcd';
+
+select * from table_name1 where column1_1=1 and column1_2='abcd';
+visualize noexec lqp select * from table_name1 where column1_1=1 and column1_2='abcd';
+visualize noexec pqp select * from table_name1 where column1_1=1 and column1_2='abcd';
+
+(5)
+select table_name1.column1_1, table_name2.column2_2 from table_name1, table_name2 where table_name1.column1_1=table_name2.column2_1 and table_name1.column1_1=4 and table_name2.column2_2='abcd';
+
+visualize noexec lqp select table_name1.column1_1, table_name2.column2_2 from table_name1, table_name2 where table_name1.column1_1=table_name2.column2_1 and table_name1.column1_1=4 and table_name2.column2_2='abcd';
+visualize noexec pqp select table_name1.column1_1, table_name2.column2_2 from table_name1, table_name2 where table_name1.column1_1=table_name2.column2_1 and table_name1.column1_1=4 and table_name2.column2_2='abcd';
+
+
+==========================================================================================================================
+HYRISE SQL Interface
+
+Available commands:
+  generate_tpcc NUM_WAREHOUSES [CHUNK_SIZE] - Generate all TPC-C tables
+  generate_tpch SCALE_FACTOR [CHUNK_SIZE] - Generate all TPC-H tables
+  generate_tpcds SCALE_FACTOR [CHUNK_SIZE] - Generate all TPC-DS tables
+  load FILEPATH [TABLENAME [ENCODING]]    - Load table from disk specified by filepath FILEPATH, store it with name TABLENAME
+                                               The import type is chosen by the type of FILEPATH.
+                                                 Supported types: '.bin', '.csv', '.tbl'
+                                               If no table name is specified, the filename without extension is used
+                                                 Encoding options: Dictionary, FixedStringDictionary, FrameOfReference,
+                                                    LZ4, RunLength, Unencoded
+
+  export TABLENAME FILEPATH               - Export table named TABLENAME from storage manager to filepath FILEPATH
+                                               The export type is chosen by the type of FILEPATH.
+                                                 Supported types: '.bin', '.csv'
+  script SCRIPTFILE                       - Execute script specified by SCRIPTFILE
+  print TABLENAME                         - Fully print the given table (including MVCC data)
+  visualize [options] [SQL]               - Visualize a SQL query
+                                               Options
+                                                - {exec, noexec} Execute the query before visualization.
+                                                                 Default: exec
+                                                - {lqp, unoptlqp, pqp, joins} Type of plan to visualize. unoptlqp gives the
+                                                                       unoptimized lqp; joins visualized the join graph.
+                                                                       Default: pqp
+                                              SQL
+                                                - Optional, a query to visualize. If not specified, the last
+                                                  previously executed query is visualized.
+  txinfo                                  - Print information on the current transaction
+  pwd                                     - Print current working directory
+  load_plugin FILE                        - Load and start plugin stored at FILE
+  unload_plugin NAME                      - Stop and unload the plugin libNAME.so/dylib (also clears the query cache)
+  quit                                    - Exit the HYRISE Console
+  help                                    - Show this message
+
+  setting [property] [value]              - Change a runtime setting
+
+           scheduler (on|off)             - Turn the scheduler on (default) or off
