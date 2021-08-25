@@ -37,9 +37,9 @@ endif()
 
 # Add Libraries with their own build setup
 SET(BENCHMARK_ENABLE_GTEST_TESTS OFF CACHE BOOL "Disable download and building internal test suite of google benchmark." FORCE)
-add_subdirectory(benchmark)
+#add_subdirectory(benchmark)
 add_subdirectory(googletest)
-add_subdirectory(libpqxx)
+#add_subdirectory(libpqxx)
 add_subdirectory(nlohmann_json)
 add_subdirectory(robin-map)
 add_subdirectory(tpch-dbgen)

@@ -269,6 +269,8 @@ bool Console::_initialize_pipeline(const std::string& sql) {
     if (_explicitly_created_transaction_context) {
       builder.with_transaction_context(_explicitly_created_transaction_context);
     }
+    builder.with_lqp_cache(nullptr);
+    builder.with_pqp_cache(nullptr);
     _sql_pipeline = std::make_unique<SQLPipeline>(builder.create_pipeline());
   } catch (const InvalidInputException& exception) {
     out(std::string(exception.what()) + '\n');
